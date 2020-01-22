@@ -17,7 +17,7 @@ const spacer = (text) => {
   console.log(`${stars} ${text} ${stars}`)
 }
 
-
+// great variable names and use of lambda (fat arrow funcs)
 const findEmployeeByName = (name, employeeArr) => employeeArr.find(employee => employee.name === name)
 
 
@@ -26,7 +26,9 @@ spacer('findEmployeeByName Moe')
 console.log(findEmployeeByName('moe', employees))//{ id: 1, name: 'moe' }
 spacer('')
 
-
+// consistent variable naming
+// be wary of line length, above 80 should be a warning to chop off
+// above 100 means definitely!
 const findManagerFor = (employee, employeeArr) => employeeArr.find(manager => employee.managerId === manager.id)
 
 
@@ -35,7 +37,7 @@ spacer('findManagerFor Shep')
 console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees))//{ id: 4, name: 'shep', managerId: 2 }
 spacer('')
 
-
+// great variable names even in lambda!
 const findCoworkersFor = (employee, employeeArr) => employeeArr.filter(coworker => coworker !== employee && coworker.managerId === employee.managerId)
 
 
@@ -49,7 +51,7 @@ console.log(findCoworkersFor(findEmployeeByName('larry', employees), employees))
 
 spacer('')
 
-
+// short and concise recursive function. perfect!
 const findManagementChainForEmployee = (employee, employeeArr) => {
   if (!employee.managerId) {
     return []
@@ -75,6 +77,9 @@ console.log(findManagementChainForEmployee(findEmployeeByName('shep Jr.', employ
 spacer('')
 
 
+// could be better named helper function
+// maybe findWorkers? and the first param can be manager
+// good names go a great way in reducing overhead for people reading your code!
 const findEmployee = (employee, employeeArr) => {
   return employeeArr.filter(worker => {
     return worker.id !== employee.id && worker.managerId === employee.id
@@ -98,6 +103,8 @@ const generateManagementTree = (employeeArr) => {
     })
   }
 
+  // what if the first employee wasn't the top level manager?
+  // complicates things a bit. if you have time, would be a nice challenge for you
   return {
     ...employeeArr[0],
     reports: recursiveFn(employeeArr[0])
@@ -164,6 +171,10 @@ console.log(JSON.stringify(generateManagementTree(employees), null, 2))
 */
 spacer('')
 
+// eerily similar to my code! good job
+// even this though is what is being 'expected', try writing this to return
+// a string instead of console logging it. not super priority
+//(I think the one above is a better use of time)
 
 const displayManagementTree = (employeeTree, branches = 0) => {
   console.log(`${'-'.repeat(branches)}${employeeTree.name}`)
